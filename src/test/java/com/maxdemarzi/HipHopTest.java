@@ -43,13 +43,17 @@ public class HipHopTest {
 
     private static final String MODEL_STATEMENT =
             // (c1)<--(a1)-->(c2)<--(a2)-->(c3)
+            // (c1)<--(a1)-->(b1)<--(a2)-->(c3)
             "CREATE (c1:C {id:'c1'})" +
             "CREATE (a1:A {id:'a1'})" +
+            "CREATE (b1:B {id:'b1'})" +
             "CREATE (c2:C {id:'c2'})" +
             "CREATE (a2:A {id:'a2'})" +
             "CREATE (c3:C {id:'c3'})" +
             "CREATE (c1)<-[:RELATED]-(a1)" +
             "CREATE (a1)-[:RELATED]->(c2)" +
             "CREATE (c2)<-[:RELATED]-(a2)" +
+            "CREATE (a1)-[:RELATED]->(b1)" +
+            "CREATE (b1)<-[:RELATED]-(a2)" +
             "CREATE (a2)-[:RELATED]->(c3)";
 }
