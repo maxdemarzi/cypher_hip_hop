@@ -14,7 +14,7 @@ public class HipHop {
     // This field declares that we need a GraphDatabaseService
     // as context when any procedure in this class is invoked
     @Context
-    GraphDatabaseService db;
+    public GraphDatabaseService db;
 
     // This gives us a log instance that outputs messages to the
     // standard log, normally found under `data/log/console.log`
@@ -34,7 +34,7 @@ public class HipHop {
     }
 
     public class PathResult {
-        Path path;
+        public Path path;
 
         PathResult(Path path) {
             this.path = path;
