@@ -15,7 +15,6 @@ Cypher Stored Procedure for odd even traversal
 4. Call the Procedure:
 
         MATCH (c:C {id: $id})
-        WITH c
         CALL com.maxdemarzi.hiphop(c) yield path
         RETURN path;
         
