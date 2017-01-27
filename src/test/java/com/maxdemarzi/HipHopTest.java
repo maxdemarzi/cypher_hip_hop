@@ -21,11 +21,8 @@ public class HipHopTest {
     @Test
     public void testHipHop() throws Exception {
         HTTP.Response response = HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), QUERY);
-        Map actual = response.content();
-        List<Map> results = (List<Map>)actual.get("results");
-        Map result = (Map)results.get(0);
-        List<Map> data = (List<Map>)result.get("data");
-        assertEquals(5, data.size());
+        int results = response.get("results").get(0).get("data").size();
+        assertEquals(5, results);
     }
 
     private static final Map QUERY = 
