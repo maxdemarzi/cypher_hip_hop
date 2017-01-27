@@ -36,11 +36,40 @@ public class HipHop {
         return  myTraversal.traverse(startNode).stream().map(PathResult::new);
     }
 
+    @Description("com.maxdemarzi.hiphopdistinct(node) | Return Paths starting from node alternating pattern")
+    @Procedure(name = "com.maxdemarzi.hiphopdistinct", mode = Mode.READ)
+    public Stream<NodeResult> hiphopDistinct( @Name("startNode") Node startNode) {
+        TraversalDescription myTraversal = db.traversalDescription()
+                .depthFirst()
+                .expand(hipHopExpander)
+                .evaluator(hiphopEvaluator);
+
+        return  myTraversal.traverse(startNode).nodes().stream().map(NodeResult::new);
+    }
+
     public static class PathResult {
         public Path path;
 
         PathResult(Path path) {
             this.path = path;
+        }
+    }
+
+    public static class NodeResult {
+        public final Node node;
+
+        public NodeResult(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return this == o || o != null && getClass() == o.getClass() && node.equals(((NodeResult) o).node);
+        }
+
+        @Override
+        public int hashCode() {
+            return node.hashCode();
         }
     }
 }

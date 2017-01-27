@@ -5,10 +5,10 @@ import org.junit.Test;
 import org.neo4j.harness.junit.Neo4jRule;
 import org.neo4j.test.server.HTTP;
 
+import java.util.Map;
+
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonMap;
-import java.util.*;
-
 import static junit.framework.TestCase.assertEquals;
 
 public class HipHopTest {
@@ -20,6 +20,13 @@ public class HipHopTest {
 
     @Test
     public void testHipHop() throws Exception {
+        HTTP.Response response = HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), QUERY);
+        int results = response.get("results").get(0).get("data").size();
+        assertEquals(5, results);
+    }
+
+    @Test
+    public void testHipHopDistinct() throws Exception {
         HTTP.Response response = HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), QUERY);
         int results = response.get("results").get(0).get("data").size();
         assertEquals(5, results);
