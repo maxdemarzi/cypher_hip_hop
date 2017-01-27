@@ -1,6 +1,7 @@
 package com.maxdemarzi;
 
 import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.PathExpander;
 import org.neo4j.graphdb.Relationship;
@@ -10,10 +11,11 @@ import java.util.Collections;
 
 public class HipHopExpander implements PathExpander{
 
+    private Label stopLabel = Label.label("B");
 
     @Override
     public Iterable<Relationship> expand(Path path, BranchState branchState) {
-        if (path.endNode().getLabels().iterator().next().name().equals("B")) {
+        if (path.endNode().hasLabel(stopLabel)) {
             return Collections.emptyList();
         }
         if (path.length() % 2 == 0) {
