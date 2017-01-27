@@ -44,7 +44,7 @@ public class HipHop {
                 .expand(hipHopExpander)
                 .evaluator(hiphopEvaluator);
 
-        return  myTraversal.traverse(startNode).nodes().stream().map(NodeResult::new);
+        return  myTraversal.traverse(startNode).nodes().stream().distinct().map(NodeResult::new);
     }
 
     public static class PathResult {
