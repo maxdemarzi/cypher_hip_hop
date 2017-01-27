@@ -12,7 +12,7 @@ public class HipHopEvaluator implements PathEvaluator {
     @Override
     public Evaluation evaluate(Path path, BranchState branchState) {
         if (path.endNode().hasLabel(stopLabel)) {
-            return Evaluation.EXCLUDE_AND_CONTINUE;
+            return Evaluation.EXCLUDE_AND_PRUNE;
         } else {
             return Evaluation.INCLUDE_AND_CONTINUE;
         }

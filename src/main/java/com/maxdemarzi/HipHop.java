@@ -25,7 +25,7 @@ public class HipHop {
     static final HipHopEvaluator hiphopEvaluator = new HipHopEvaluator();
 
     //(A) --> (C) <-- (A) --> (C) <-- (A) --> (C) <-- (A) --> (C {id})
-    @Description("com.maxdemarzi.hiphop(node) | Return Tree starting from node alternating pattern")
+    @Description("com.maxdemarzi.hiphop(node) | Return Paths starting from node alternating pattern")
     @Procedure(name = "com.maxdemarzi.hiphop", mode = Mode.READ)
     public Stream<PathResult> hiphop( @Name("startNode") Node startNode) {
         TraversalDescription myTraversal = db.traversalDescription()
