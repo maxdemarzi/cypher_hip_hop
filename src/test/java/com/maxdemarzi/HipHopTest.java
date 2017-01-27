@@ -5,9 +5,9 @@ import org.junit.Test;
 import org.neo4j.harness.junit.Neo4jRule;
 import org.neo4j.test.server.HTTP;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonMap;
+import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -21,25 +21,13 @@ public class HipHopTest {
     @Test
     public void testHipHop() throws Exception {
         HTTP.Response response = HTTP.POST(neo4j.httpURI().resolve("/db/data/transaction/commit").toString(), QUERY);
-        Map actual = response.content();
-        ArrayList results = (ArrayList)actual.get("results");
-        HashMap result = (HashMap)results.get(0);
-        ArrayList<Map> data = (ArrayList)result.get("data");
-        assertEquals(5, data.size());
+        int results = response.get("results").get(0).get("data").size();
+        assertEquals(5, results);
     }
 
-    private static final HashMap<String, Object> PARAMS = new HashMap<String, Object>(){{
-        put("id", "c1");
-    }};
-
-    private static final HashMap<String, Object> QUERY = new HashMap<String, Object>(){{
-        put("statements", new ArrayList<Map<String, Object>>() {{
-            add(new HashMap<String, Object>() {{
-                put("statement", "MATCH (c1:C {id: $id}) CALL com.maxdemarzi.hiphop(c1) yield path return path");
-                put("parameters", PARAMS);
-            }});
-        }});
-    }};
+    private static final Map QUERY = 
+        singletonMap("statements",asList(singletonMap("statement", 
+            "MATCH (c1:C {id: 'c1'}) CALL com.maxdemarzi.hiphop(c1) yield path return path")));
 
     private static final String MODEL_STATEMENT =
             // (c1)<--(a1)-->(c2)<--(a2)-->(c3)

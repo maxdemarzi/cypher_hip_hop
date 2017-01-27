@@ -33,10 +33,10 @@ public class HipHop {
                 .expand(hipHopExpander)
                 .evaluator(hiphopEvaluator);
 
-        return  myTraversal.traverse(startNode).iterator().stream().map(PathResult::new);
+        return  myTraversal.traverse(startNode).stream().map(PathResult::new);
     }
 
-    public class PathResult {
+    public static class PathResult {
         public Path path;
 
         PathResult(Path path) {
